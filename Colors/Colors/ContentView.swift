@@ -57,7 +57,6 @@ struct ContentView: View {
                 confirmGreen = greenSlider
                 confirmBlue = blueSlider
             }
-            
         }
     }
 }
