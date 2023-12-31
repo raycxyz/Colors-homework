@@ -1,47 +1,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var title = "Color Picker"
+    @State private var buttonText = "Set Color"
     @State private var redSlider = 0.0
     @State private var greenSlider = 0.0
     @State private var blueSlider = 0.0
     @State private var foregroundColor = Color(red: 0.5, green: 0.5, blue: 0.5)
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
-        VStack {
-            
-            Text("Color Picker")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            
-            RoundedRectangle(cornerRadius: Constants.roundedRectCornerRadius)
-                .frame(width: Constants.generalFrameSize, height: Constants.generalFrameSize)
-                .foregroundStyle(foregroundColor)
-            
-            Group {
-       
-                
-                Text("Red")
-                HStack {
-                    Slider(value: $redSlider, in: 0...255)
-                    Text("\(Int(redSlider.rounded()))")
+        ZStack {
+            BackgroundColorView()
+   
+            VStack {
+                if verticalSizeClass == .regular && horizontalSizeClass == .compact {
+                    TopView(title: $title, foregroundColor: $foregroundColor)
+                    
+                    BottomView(redSlider: $redSlider, greenSlider: $greenSlider, blueSlider: $blueSlider, foregroundColor: $foregroundColor, text: $buttonText)
+                } else {
+                    HStack {
+                        TopView(title: $title, foregroundColor: $foregroundColor)
+                        Spacer()
+                        
+                        BottomView(redSlider: $redSlider, greenSlider: $greenSlider, blueSlider: $blueSlider, foregroundColor: $foregroundColor, text: $buttonText)
+                        Spacer()
+                    }
                 }
-                
-                Text("Green")
-                HStack {
-                    Slider(value: $greenSlider, in: 0...255)
-                    Text("\(Int(greenSlider.rounded()))")
-                }
-                
-                Text("Blue")
-                HStack {
-                    Slider(value: $blueSlider, in: 0...255)
-                    Text("\(Int(blueSlider.rounded()))")
-                }
-            }
-            .frame(maxWidth: Constants.generalFrameSize)
-            
-            Button("Set Color") {
-                foregroundColor = Color(red: redSlider / 255, green: greenSlider / 255, blue: blueSlider / 255)
             }
         }
     }
