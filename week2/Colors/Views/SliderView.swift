@@ -18,18 +18,21 @@ struct SliderView: View {
             Text("Red")
             HStack {
                 Slider(value: $redSlider, in: 0...Constants.colorRange)
+                    .tint(.red)
                 Text("\(Int(redSlider.rounded()))")
             }
             
             Text("Green")
             HStack {
                 Slider(value: $greenSlider, in: 0...Constants.colorRange)
+                    .tint(.green)
                 Text("\(Int(greenSlider.rounded()))")
             }
             
             Text("Blue")
             HStack {
                 Slider(value: $blueSlider, in: 0...Constants.colorRange)
+                    .tint(.blue)
                 Text("\(Int(blueSlider.rounded()))")
             }
         }

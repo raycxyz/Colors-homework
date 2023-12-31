@@ -17,22 +17,18 @@ struct BackgroundColorView: View {
 struct ColorView: View {
     @Binding var foregroundColor: Color
     @Environment(\.verticalSizeClass) var verticalSizeClass
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    
+
     var body: some View {
-        VStack {
-            if verticalSizeClass == .regular && horizontalSizeClass == .compact {
+        
+        RoundedRectangle(cornerRadius: Constants.roundedRectCornerRadius)
+            .frame(width: Constants.generalFrameSize, height: (verticalSizeClass == .regular) ? Constants.generalFrameSize : 250)
+            .foregroundStyle(foregroundColor)
+            .overlay(
                 RoundedRectangle(cornerRadius: Constants.roundedRectCornerRadius)
-                    .frame(width: Constants.generalFrameSize, height: Constants.generalFrameSize)
-                    .foregroundStyle(foregroundColor)
-                    .shadow(radius: Constants.shadow)
-            } else {
-                RoundedRectangle(cornerRadius: Constants.roundedRectCornerRadius)
-                    .frame(width: Constants.generalFrameSize, height: 250)
-                    .foregroundStyle(foregroundColor)
-                    .shadow(radius: Constants.shadow)
-            }
-        }
+                    .strokeBorder(.brown, lineWidth: 15)
+                    .foregroundStyle(.brown)
+            )
+            .shadow(radius: Constants.shadow)
     }
 }
 

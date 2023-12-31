@@ -12,10 +12,9 @@ struct ButtonView: View {
     @Binding var greenSlider: Double
     @Binding var blueSlider: Double
     @Binding var foregroundColor: Color
-    @Binding var text: String
     
     var body: some View {
-        Button(text) {
+        Button("Set Color") {
             withAnimation {
                 foregroundColor = Color(red: redSlider / Constants.colorRange, green: greenSlider / Constants.colorRange, blue: blueSlider / Constants.colorRange)
             }
@@ -38,5 +37,5 @@ struct ButtonView: View {
 }
 
 #Preview {
-    ButtonView(redSlider: .constant(50), greenSlider: .constant(50), blueSlider: .constant(50), foregroundColor: .constant(.red), text: .constant("Set Color"))
+    ButtonView(redSlider: .constant(50), greenSlider: .constant(50), blueSlider: .constant(50), foregroundColor: .constant(.red))
 }

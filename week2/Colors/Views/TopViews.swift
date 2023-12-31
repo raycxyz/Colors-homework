@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct TopView: View {
-    @Binding var title: String
     @Binding var foregroundColor: Color
     
     var body: some View {
         VStack {
-            Title(text: title)
+            Text("Color Picker")
+                .font(.largeTitle)
+                .fontWeight(.bold)
             ColorView(foregroundColor: $foregroundColor)
         }
     }
 }
 
 #Preview {
-    TopView(title: .constant("Color Picker"), foregroundColor: .constant(.red))
+    TopView(foregroundColor: .constant(.red))
 }
