@@ -1,10 +1,3 @@
-//
-//  ColorsApp.swift
-//  Colors
-//
-//  Created by Raymond Ho on 2023-12-20.
-//
-
 import SwiftUI
 
 @main

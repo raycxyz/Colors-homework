@@ -1,162 +1,119 @@
-a) What does the command ‘git status’ output?
+a) Describe the two size classes in iOS.
 
-- Outputs the state of repo
-- To see tracked, untracked changes
+- compact and regular
+- lets you know if you currently have regular size or compact size for the horizontal and vertical length of the device
 
 
-b) In SwiftUI, anything that gets drawn on the screen is a ______View____________.
+b) What is Continuous Learning, and why is it important in mobile development?
 
+Always try to keep learning and reuse the previous skills you have acquired, this will allow you to remember the old skills better and at the same time, acquiring new skills to stay current. 
 
 
-c) print(“Hello world”) is an example of a _______function___________ call.
-viewModel.getData() is an example of a ________method__________ call.
 
+c) How can you find out what modifiers a View has?
 
+- underneath a view, we apply modifiers to a view
+- or sometimes we make a SwiftUI view that just contains ViewModifiers, inside it will contain all the modifiers
 
-d) Name some Views you have seen so far in SwiftUI.
 
-- Text
-- Circle
-- Image
-- VStack
-- Slider
+d) What is a breakpoint?
 
+- make Xcode stop at that line of code that you sat breakpoint, so you can examine what is happening
 
-e) How do you create a new local repository using git? (Feel free to answer with how you use git, i.e. terminal or another app)
 
-- Open Github Desktop
-- Click file -> New -> Select a local path of your choosing
-- Click Create Repository
+e) How can you access environment values in your App?
 
+- @Environment(\.nameProperty) var name
+- the nameProperty can be anything like colorScheme or verticalSizeClass
 
-f) How do you preview your app in multiple orientations?
 
-- In the preview canvas of Xcode, click canvas device setting -> Orientation Preview Canvas -> click on the 6 small shaped box button -> Orientation variants
 
+f) How can you determine, in code, if the App is in Dark or Light Mode?
 
+- look for @Environment(.\colorScheme) var lightOrDark
+- at the contentView just add this: Text(lightOrDark == .light ? "Light" : "Dark"
 
-g) An app is made up of _____instances___________ of classes and structs that contain ______properties________  and _____methods____________.
 
+g) Why are magic numbers an issue, and how should you avoid them?
 
+- if another member of your team looks at your code, they see random numbers, numbers with no meaning
+- to solve this, give the same numbers that appear frequently a name constant using enum
+- whenever you apply the number, use enum with a property name instead
 
-h) Name two components of a SwiftUI Button.
 
-- titlekey - requires text for labeling
-- action - run code when button is pressed
+h) How can you view your App in Light and Dark Modes simultaneously?
 
+- have 2 #previews, one with only contentView(), the other contentView() with modifier .preferredColorScheme(.dark)
 
 
-i) In git, what is the difference between a local repository and a remote repository?
+i) Below is an image of the Canvas from Xcode. The Canvas is in selectable mode. Can you explain why the red background does not cover the entire button area?
 
-- Local repository means repo is stored on your pc
-- Remote repository is stored somewhere else; for eg: cloud service or company's network
+- the order of modifier matters. Every time you apply a view modifier, it returns a copy of the view with the modifier. And you need to apply padding modifier first in order to get a full button.
 
 
 
-j) Give an example of camel case.
+j) Modifier padding(10) adds padding to the view's top, bottom, left, and right sides. How could a padding of 10 be added to only the left and right sides of the view? The answer for this question should be a short section of code.
 
-- var camelCases
+.padding(.horizontal, 10)
 
 
-k) What is a branch in git, and how do you create one? (Feel free to answer with how you use git, i.e. terminal or another app)
+k) Provide two reasons why you would want to extract views.
 
-- A version of your repo that is independent form the main branch
-- Open GitHub desktop -> select Branch from menu bar -> select New Branch
+- reusable code
+- cleaner to read
 
 
+l) How can you determine, in code, if the device is in Portrait or Landscape mode?
 
+Use @Environment(\.verticalSizeClass) and @Environment(\.horizontalSizeClass) to determine the size
 
-l) What are some common mistakes that can lead to errors while programming?
+m) What is a literal value?
 
-- Typo
-- Missing curly brace
-- Forget closed parenthesis
-- case sensitivity mistakes
+- any negative values will become positive value
 
 
+o) What are the safe areas?
 
-m) VStack, HStack, and ZStack are ________invisible__________ views used for ____containing child view____________.
+- the content that is below the menu bar, but above the home bar where it the content won't be blocked
 
 
+p) This line of code was in the lesson on animation. Can you state in English what the line means? 
+.frame(width: wideShapes ? 200 : 100)
 
+- if wideShape is true, width will be 200, if false, width will be 100
 
-n) How do you list the branches on your local repository? (Feel free to answer with how you use git, i.e. terminal or another app)
 
-- Github desktop
-- click "Current Branch", it will show the list of branches and main branch
+q) Describe the two transitions you were introduced to in this week’s lesson.
 
+- scale
+- opacity
 
+r) In Bullseye, the Game struct is what type of object?
 
-o) What happens when @State variable changes in SwiftUI?
+- Game type
 
-- Recompute the body, resolve the body of the view
-- View and State variable are always in sync
+s) What are SFSymbols?
 
+- library of icons that Apple created for their OS which can be accessed using systemName(: nameOfSymbol)
 
 
-p) What is the Single Responsibility Principle?
+t) What is the difference between “step into” and “step over " in the debugger?”
 
-- Organization method, where each class or structure has only one job
+- step into: move into next line, step into any method (basically go into any method step by step)
+- step over: move onto the next line of code, if there is method, it will move over without calling it
 
 
+u) Name some items you would place in the Asset Catalog (Assets.)
 
-q) What will the print statement below produce?
-var name = “Ozma”
-print(“Hello, \(name)!”)
+- ButtonColors
+- TextColors
+- BackgroundColors
 
-- Hello, Ozma!
 
 
+v) How do you change the Display Name of your app?
 
-
-r) What commands can you use in git to download data from a remote repository? What commands can you use in git to send data to a remote repository? (Feel free to answer with how you use git, i.e. terminal or another app)
-
-
-Download data:
-- Navigate to main page of repository -> click on "<> code" -> click "Open with GitHub desktop" -> select the directory on where to clone -> click Done
-
-Send data:
-- Github Desktop -> changes tab -> bottom left corner, click on "Commit to ...." -> click on "Push Origin"
-
-
-
-
-
-s) Why is a programming To-Do list important, and what is a minimum viable product?
-
-- Figure out what you want to do before figuring out how to do it
-- MVP is the minimum required feature in order for app to function
-
-
-
-t) What is a simple way of describing Binding in SwiftUI?
-
-- User interface view tied to a particular state view
-
-
-
-u) What command do you use in git to move changes from one branch to another? (Feel free to answer with how you use git, i.e. terminal or another app)
-
-- Github Desktop
-- Staging area -> select file and select the blue highlight that you want to change -> create new branch -> select  the "bring the changes to the new branch" option
-
-
-
-v) What is the type of the variable defined below?
-var a = 87
-
-Integer
-
-
-
-w) What is the difference between var and let?
-
-- var - a variable that is mutable
-- let - a constant that is immutable
-
-
-
-
+- Navigator -> Project -> click on the App -> General Tab -> Identity -> Display Name
 
 
 
