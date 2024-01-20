@@ -24,78 +24,53 @@ let average2 = average(for: Array(array))
 
 
 //b
-enum Animal {
-    case dog, cat, bird, pig, cow
-}
-
-func theSoundMadeBy(animal: Animal) -> String {
-    switch animal {
-    case .dog:
-        return "A dog goes woof"
-    case .cat:
-        return "A cat goes meow"
-    case .bird:
-        return "A bird goes tweet"
-    case .pig:
-        return "A pig goes oink"
-    case .cow:
-        return "A cow goes moo"
+enum Animal: String {
+    case dog = "wolf"
+    case cat = "meow"
+    case bird = "tweet"
+    case pig = "oink"
+    case cow = "moo"
+    
+    func speak() -> String {
+        self.rawValue
     }
 }
 
-let cow = theSoundMadeBy(animal: Animal.cow)
-let cat = theSoundMadeBy(animal: Animal.cat)
+func theSoundMadeBy(animal: Animal) {
+    print("\(animal.rawValue)")
+}
+
+let cow = theSoundMadeBy(animal: .cow)
+let cat = theSoundMadeBy(animal: .cat)
 
 
 
 //c
-var nums: [Int] = Array(0...100)
+var nums = Array(0...100)
 var numsWithNil: [Int?] = [79, nil, 80, nil, 90, nil, 100, 72]
 
-var numsBy2: [Int] {
-    let array = Array(2...100)
-    var finalArray: [Int] = []
-    
-    for value in array where value.isMultiple(of: 2) {
-        finalArray.append(value)
-    }
-    return finalArray
+var numsBy2 = stride(from: 2, through: 100, by: 2).map { $0 }
+var numsBy4 = stride(from: 2, through: 100, by: 4).map { $0 }
+
+func evenNumbersArray(for number: [Int]) -> [Int] {
+    number.filter { $0.isMultiple(of: 2) }
 }
 
-var numsBy4: [Int] {
-    let array = Array(2...100)
-    var finalArray: [Int] = []
-    
-    for value in array where value.isMultiple(of: 4) {
-        finalArray.append(value)
-    }
-    return finalArray
-}
-
-func evenNumbersArray(numbers: [Int]) -> [Int] {
-    var evenNumbers = [Int]()
-    
-    for number in numbers where number.isMultiple(of: 2){
-        evenNumbers.append(number)
-    }
-    return evenNumbers
-}
-
-print(evenNumbersArray(numbers: nums))
+print(evenNumbersArray(for: nums))
 
 func sumOfArray(numbers: [Int?]) -> Int {
-    let sumOfNumbers = numbers.compactMap{ $0 }.reduce(0, +)
-    return sumOfNumbers
+    let sum = numbers.compactMap { $0 }.reduce(0, +)
+    return sum
 }
 
 print(sumOfArray(numbers: numsWithNil))
 
 
-func commonElementSet(arrayA: [Int], arrayB: [Int]) -> Set<Int> {
-    Set(arrayA).union(Set(arrayB))
+func commonElementsSet(arrayA: [Int], arrayB: [Int]) -> Set<Int> {
+    Set(arrayA).intersection(Set(arrayB))
 }
 
-print(commonElementSet(arrayA: numsBy2, arrayB: numsBy4))
+print(commonElementsSet(arrayA: numsBy2, arrayB: numsBy4))
 
 
 
@@ -149,13 +124,19 @@ struct Sphere: Shape {
         4 * 3.14 * pow(length, 2)
     }
     
-    func calculateVolume() -> Double {
+//    func calculateVolume() -> Double {
+//        4 / 3 * 3.14 * pow(length, 3)
+//    }
+}
+
+extension Shape {
+    func calculateVolume(length: Double) -> Double {
         4 / 3 * 3.14 * pow(length, 3)
     }
 }
 
 let sphere = Sphere(length: 4)
 sphere.calculateArea()
-sphere.calculateVolume()
+sphere.calculateVolume(length: 4.1)
 
 
