@@ -30,6 +30,17 @@ struct ContentView: View {
     var completeList: [NewNotes] {
         notesContainer.listOfNotes.filter { $0.isComplete }
     }
+    
+    func binding(for task: NewNotes) -> Binding<NewNotes> {
+        guard let taskIndex = notesContainer.listOfNotes.firstIndex(where: { $0.id == task.id }) else {
+            fatalError("Can't find task")
+        }
+        return Binding(
+            get: {notesContainer.listOfNotes[taskIndex]},
+            set: {notesContainer.listOfNotes[taskIndex] = $0 }
+        )
+    }
+    
 
     
     var body: some View {
@@ -40,6 +51,9 @@ struct ContentView: View {
                         RowView(newNotes: $notesContainer.listOfNotes.first(where: {
                             $0.id == note.id
                         })!)
+//                        RowView(newNotes: binding(for: $0))
+                        
+                        
                     }
                 }
                 .tabItem {
