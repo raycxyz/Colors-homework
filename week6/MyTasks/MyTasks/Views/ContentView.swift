@@ -37,9 +37,7 @@ struct ContentView: View {
             TabView {
                 List(incompleteList) { note in
                     NavigationLink(value: note) {
-                        RowView(newNotes: $notesContainer.listOfNotes.first(where: {
-                            $0.id == note.id
-                        })!)
+                        RowView(newNotes: notesContainer.binding(for: note))
                     }
                 }
                 .tabItem {
@@ -49,9 +47,7 @@ struct ContentView: View {
                 
                 List(completeList) { note in
                     NavigationLink(value: note) {
-                        RowView(newNotes: $notesContainer.listOfNotes.first(where: {
-                            $0.id == note.id
-                        })!)
+                        RowView(newNotes: notesContainer.binding(for: note))
                     }
                 }
                 .tabItem {
@@ -62,14 +58,12 @@ struct ContentView: View {
             .searchable(text: $search) {
                 ForEach(searchResult) { note in
                     NavigationLink(value: note) {
-                        RowView(newNotes: $notesContainer.listOfNotes.first(where: {
-                            $0.id == note.id
-                        })!)
+                        RowView(newNotes: notesContainer.binding(for: note))
                     }
                 }
             }
             .navigationDestination(for: NewNotes.self) { note in
-                DetailsView(newNotes: $notesContainer.listOfNotes.first(where: { $0.id == note.id })!)
+                DetailsView(newNotes: notesContainer.binding(for: note))
             }
             .listStyle(.plain)
             .navigationTitle("My Tasks")

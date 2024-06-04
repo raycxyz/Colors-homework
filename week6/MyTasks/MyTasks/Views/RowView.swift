@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RowView: View {
     @Binding var newNotes: NewNotes
-    //    @ObservedObject var notesContainer: NotesContainer
+    @State var copyNote = false
     
     var body: some View {
         
@@ -20,25 +20,33 @@ struct RowView: View {
             Spacer()
             Button {
                 withAnimation() {
-                    newNotes.isComplete.toggle()
+                    copyNote.toggle()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        withAnimation() {
+                            newNotes.isComplete.toggle()
+                        }
+                    }
                 }
             } label: {
-                Image(systemName: newNotes.isComplete ? "checkmark.square": "square")
-                    .foregroundStyle(newNotes.isComplete ? .green : .red)
+                Image(systemName: copyNote ? "checkmark.square": "square")
+                    .foregroundStyle(copyNote ? .green : .red)
             }
             .buttonStyle(PlainButtonStyle())
             
         }
         .padding(.vertical, 10)
+        .onAppear {
+            copyNote = newNotes.isComplete
+        }
         
     }
 }
 
-#Preview {
-    RowView(newNotes: .constant(.init(taskTitle: "title", notes: "notes")))
-}
-
 //#Preview {
-//    ContentView()
+//    RowView(newNotes: .constant(.init(taskTitle: "title", notes: "notes")))
 //}
+
+#Preview {
+    ContentView()
+}
 
