@@ -24,6 +24,21 @@ class NotesContainer: ObservableObject{
         let newNote = NewNotes(taskTitle: title, notes: notes)
         listOfNotes.append(newNote)
     }
+    
+    func binding(for task: NewNotes) -> Binding<NewNotes> {
+        guard let taskIndex = listOfNotes.firstIndex(where: {
+            $0.id == task.id} ) else {
+            fatalError()
+        }
+        
+        return Binding<NewNotes> (
+            get: {self.listOfNotes[taskIndex]},
+            set: {self.listOfNotes[taskIndex] = $0 }
+        )
+    }
+    
+    
+
 }
 
 

@@ -38,7 +38,7 @@ struct RowView: View {
         .onAppear {
             copyNote = newNotes.isComplete
         }
-
+        
     }
 }
 

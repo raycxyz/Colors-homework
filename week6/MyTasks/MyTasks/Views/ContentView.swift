@@ -30,17 +30,6 @@ struct ContentView: View {
     var completeList: [NewNotes] {
         notesContainer.listOfNotes.filter { $0.isComplete }
     }
-    
-    func binding(for task: NewNotes) -> Binding<NewNotes> {
-        guard let taskIndex = notesContainer.listOfNotes.firstIndex(where: { $0.id == task.id }) else {
-            fatalError("Can't find task")
-        }
-        return Binding(
-            get: {notesContainer.listOfNotes[taskIndex]},
-            set: {notesContainer.listOfNotes[taskIndex] = $0 }
-        )
-    }
-    
 
     
     var body: some View {
@@ -48,12 +37,7 @@ struct ContentView: View {
             TabView {
                 List(incompleteList) { note in
                     NavigationLink(value: note) {
-                        RowView(newNotes: $notesContainer.listOfNotes.first(where: {
-                            $0.id == note.id
-                        })!)
-//                        RowView(newNotes: binding(for: $0))
-                        
-                        
+                        RowView(newNotes: notesContainer.binding(for: note))
                     }
                 }
                 .tabItem {
@@ -63,9 +47,7 @@ struct ContentView: View {
                 
                 List(completeList) { note in
                     NavigationLink(value: note) {
-                        RowView(newNotes: $notesContainer.listOfNotes.first(where: {
-                            $0.id == note.id
-                        })!)
+                        RowView(newNotes: notesContainer.binding(for: note))
                     }
                 }
                 .tabItem {
@@ -76,14 +58,12 @@ struct ContentView: View {
             .searchable(text: $search) {
                 ForEach(searchResult) { note in
                     NavigationLink(value: note) {
-                        RowView(newNotes: $notesContainer.listOfNotes.first(where: {
-                            $0.id == note.id
-                        })!)
+                        RowView(newNotes: notesContainer.binding(for: note))
                     }
                 }
             }
             .navigationDestination(for: NewNotes.self) { note in
-                DetailsView(newNotes: $notesContainer.listOfNotes.first(where: { $0.id == note.id })!)
+                DetailsView(newNotes: notesContainer.binding(for: note))
             }
             .listStyle(.plain)
             .navigationTitle("My Tasks")
